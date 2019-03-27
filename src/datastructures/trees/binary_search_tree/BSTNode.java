@@ -1,4 +1,4 @@
-package datastructures.practice.binary_search_tree;
+package datastructures.trees.binary_search_tree;
 
 import java.util.ArrayDeque;
 import java.util.LinkedList;
@@ -61,8 +61,7 @@ class BSTNode {
 
     BSTNode getMax() {
         BSTNode temp = this;
-        while (true) {
-            if (temp.right == null) break;
+        while (temp.right != null) {
             temp = this.right;
         }
         return temp;
