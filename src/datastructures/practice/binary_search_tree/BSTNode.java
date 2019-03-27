@@ -77,12 +77,22 @@ class BSTNode {
     }
 
     boolean contains(int value) {
-        if (value == data) {
+        if (value == this.data) {
             return true;
-        } else if (value < data) {
+        } else if (value < this.data) {
             return (left != null) && left.contains(value);
         } else {
             return (right != null) && right.contains(value);
+        }
+    }
+
+    BSTNode find(int value) {
+        if (value == this.data) {
+            return this;
+        } else if (value > this.data) {
+            return (this.right == null) ? null : this.right.find(value);
+        } else {
+            return (this.left == null) ? null : this.left.find(value);
         }
     }
 
