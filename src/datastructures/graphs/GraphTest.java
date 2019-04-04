@@ -7,6 +7,7 @@ public class GraphTest {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+
         int noOfNodes = scanner.nextInt();
         int noOfEdges = scanner.nextInt();
 
@@ -21,12 +22,12 @@ public class GraphTest {
             int m = scanner.nextInt();
             int n = scanner.nextInt();
             nodesArray[m].addNeighbour(nodesArray[n]);
-            nodesArray[n].addNeighbour(nodesArray[m]);
         }
-        nodesArray[1].bfs();
-        nodesArray[1].dfs();
-        System.out.println(nodesArray[1].getData() + " has " + ((nodesArray[1].hasPathTo(nodesArray[4])) ? "" : "no ") + "path to " + nodesArray[4].getData());
-        System.out.println(nodesArray[2].getData() + " has " + ((nodesArray[2].hasPathTo(nodesArray[5])) ? "" : "no ") + "path to " + nodesArray[5].getData());
-        System.out.println(nodesArray[3].getData() + " has " + ((nodesArray[3].hasPathTo(nodesArray[4])) ? "" : "no ") + "path to " + nodesArray[4].getData());
+
+        GraphUtils.bfs(nodesArray[1]);
+        GraphUtils.dfs(nodesArray[1]);
+        System.out.println(nodesArray[1].getData() + " has " + ((GraphUtils.hasPathTo(nodesArray[1], nodesArray[4])) ? "" : "no ") + "path to " + nodesArray[4].getData());
+        System.out.println(nodesArray[2].getData() + " has " + ((GraphUtils.hasPathTo(nodesArray[2], nodesArray[5])) ? "" : "no ") + "path to " + nodesArray[5].getData());
+        System.out.println(nodesArray[3].getData() + " has " + ((GraphUtils.hasPathTo(nodesArray[3], nodesArray[4])) ? "" : "no ") + "path to " + nodesArray[4].getData());
     }
 }
