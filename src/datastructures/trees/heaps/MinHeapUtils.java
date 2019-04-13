@@ -1,4 +1,4 @@
-package datastructures.heaps;
+package datastructures.trees.heaps;
 
 import utils.ArrayUtils;
 

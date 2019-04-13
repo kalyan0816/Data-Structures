@@ -116,25 +116,22 @@ public class BSTUtils {
     }
 
     static BSTNode delete(BSTNode node, int x) {
+        if (node == null) {
+            return null;
+        }
         if (x > node.getData() && node.getRight() != null) {
             node.setRight(delete(node.getRight(), x));
         } else if (x < node.getData() && node.getLeft() != null) {
             node.setLeft(delete(node.getLeft(), x));
         } else if (node.getData() == x) {
-            boolean isLeaf = node.getLeft() == null && node.getRight() == null;
-            boolean hasOnlyLeftChild = node.getLeft() != null && node.getRight() == null;
-            boolean hasOnlyRightChild = node.getLeft() == null && node.getRight() != null;
-            if (isLeaf) {
-                return null;
-            } else if (hasOnlyLeftChild) {
-                return node.getLeft();
-            } else if (hasOnlyRightChild) {
-                return node.getRight();
-            } else {
+            boolean hasBothChildren = node.getLeft() != null && node.getRight() != null;
+            if (hasBothChildren) {
                 BSTNode maxOfLeftSubTree = getMax(node.getLeft());
                 node.setData(maxOfLeftSubTree.getData());
                 node.setCount(maxOfLeftSubTree.getCount());
                 delete(node.getLeft(), maxOfLeftSubTree.getData());
+            } else {
+                node = (node.getLeft() == null) ? node.getRight() : node.getLeft();
             }
         }
         return node;

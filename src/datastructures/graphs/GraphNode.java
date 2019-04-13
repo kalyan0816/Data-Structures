@@ -23,6 +23,14 @@ public class GraphNode {
         return neighbours;
     }
 
+    public void setData(int data) {
+        this.data = data;
+    }
+
+    public void setNeighbours(List<GraphNode> neighbours) {
+        this.neighbours = neighbours;
+    }
+
     public void addNeighbour(GraphNode neighbour) {
         this.neighbours.add(neighbour);
     }
