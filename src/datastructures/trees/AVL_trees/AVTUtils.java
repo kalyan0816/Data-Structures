@@ -61,8 +61,9 @@ public class AVTUtils {
             node.setRight(delete(node.getRight(), data));
         } else {
             if (node.getLeft() != null && node.getRight() != null) {
-                node.setData(getMax(node.getLeft()).getData());
-                node.setLeft(delete(node.getLeft(), getMax(node.getLeft()).getData()));
+                int maxOfLeftSubTree = getMax(node.getLeft()).getData();
+                node.setData(maxOfLeftSubTree);
+                node.setLeft(delete(node.getLeft(), maxOfLeftSubTree));
             } else {
                 node = (node.getLeft() == null) ? node.getRight() : node.getLeft();
             }

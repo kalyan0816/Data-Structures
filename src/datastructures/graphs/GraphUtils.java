@@ -7,7 +7,7 @@ import java.util.Stack;
 import java.util.function.Predicate;
 
 public class GraphUtils {
-    private static Optional<GraphNode> getNextUnvisitedNeighbour(GraphNode peek, HashSet<Integer> visitedMap) {
+    public static Optional<GraphNode> getNextUnvisitedNeighbour(GraphNode peek, HashSet<Integer> visitedMap) {
 
         return peek.getNeighbours().stream()
                 .filter(unvisitedNodePredicate(visitedMap))

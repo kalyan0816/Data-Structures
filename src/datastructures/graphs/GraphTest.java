@@ -1,5 +1,6 @@
 package datastructures.graphs;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class GraphTest {
@@ -24,10 +25,10 @@ public class GraphTest {
             nodesArray[m].addNeighbour(nodesArray[n]);
         }
 
-        GraphUtils.bfs(nodesArray[1]);
-        GraphUtils.dfs(nodesArray[1]);
-        System.out.println(nodesArray[1].getData() + " has " + ((GraphUtils.hasPathTo(nodesArray[1], nodesArray[4])) ? "" : "no ") + "path to " + nodesArray[4].getData());
-        System.out.println(nodesArray[2].getData() + " has " + ((GraphUtils.hasPathTo(nodesArray[2], nodesArray[5])) ? "" : "no ") + "path to " + nodesArray[5].getData());
-        System.out.println(nodesArray[3].getData() + " has " + ((GraphUtils.hasPathTo(nodesArray[3], nodesArray[4])) ? "" : "no ") + "path to " + nodesArray[4].getData());
+        List<GraphNode> topologicalSort = TopologicalSort.topologicalSort(nodesArray);
+        topologicalSort.forEach(node->{
+            System.out.print(node.getData()+" ");
+        });
+
     }
 }
