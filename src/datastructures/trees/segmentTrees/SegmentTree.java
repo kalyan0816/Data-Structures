@@ -7,15 +7,11 @@ public class SegmentTree {
     private final SegmentTreeType type;
     private int[] segTree;
     private int arraySize;
-    private int segArraySize;
-    private int[] array;
 
-    SegmentTree(int[] array, SegmentTreeType treeType) {
+    public SegmentTree(int[] array, SegmentTreeType treeType) {
         int n = array.length;
-        this.array = array;
         arraySize = n;
         int size = getSize(n);
-        segArraySize = size;
         segTree = new int[size];
         type = treeType;
         Arrays.fill(segTree, this.type.getDefaultValue());
@@ -36,7 +32,6 @@ public class SegmentTree {
     public void update(int arrayIndex, int newValue) {
         int leafIndex = getLeafIndex(0, arraySize - 1, 0, arrayIndex);
         segTree[leafIndex] = newValue;
-        array[arrayIndex] = newValue;
         int current = parentIndex(leafIndex);
         while (current >= 0) {
             segTree[current] = this.type.apply(segTree[leftChildIndex(current)], segTree[rightChildIndex(current)]);
@@ -57,21 +52,18 @@ public class SegmentTree {
     }
 
     private int query(int lowInSeg, int highInSeg, int lowInArray, int highInArray, int pos) {
-        if (lowInArray == highInArray) {
-            return array[lowInArray];
-        }
         if (perfectMatch(lowInSeg, highInSeg, lowInArray, highInArray)) {
             return segTree[pos];
-        } else if (partialMatch(lowInSeg, highInSeg, lowInArray, highInArray)) {
-            int mid = (lowInSeg + highInSeg) / 2;
+        }
+        int mid = (lowInSeg + highInSeg) / 2;
+        if (lowInArray <= mid && highInArray <= mid) {
+            return query(lowInSeg, mid, lowInArray, highInArray, leftChildIndex(pos));
+        } else if (lowInArray > mid && highInArray > mid) {
+            return query(mid + 1, highInSeg, lowInArray, highInArray, rightChildIndex(pos));
+        } else {
             return this.type.apply(query(lowInSeg, mid, lowInArray, mid, leftChildIndex(pos)),
                     query(mid + 1, highInSeg, mid + 1, highInArray, rightChildIndex(pos)));
         }
-        return this.type.getDefaultValue();
-    }
-
-    private boolean partialMatch(int lowInSeg, int highInSeg, int lowInArray, int highInArray) {
-        return (lowInSeg <= lowInArray && lowInSeg <= highInArray) && (highInSeg >= lowInArray && highInSeg >= highInArray);
     }
 
     private boolean perfectMatch(int lowInSeg, int highInSeg, int lowInArray, int highInArray) {
@@ -88,12 +80,6 @@ public class SegmentTree {
             return getLeafIndex(low, mid, leftChildIndex(pos), arrayIndex);
         } else {
             return getLeafIndex(mid + 1, high, rightChildIndex(pos), arrayIndex);
-        }
-    }
-
-    public void print() {
-        for (int i = 0; i < segTree.length; i++) {
-            System.out.print(segTree[i] + " ");
         }
     }
 
