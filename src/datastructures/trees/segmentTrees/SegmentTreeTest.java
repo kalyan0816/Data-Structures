@@ -1,28 +1,28 @@
 package datastructures.trees.segmentTrees;
 
 import org.junit.jupiter.api.Test;
-import utils.ArrayUtils;
+import utils.RandomUtils;
 
 class SegmentTreeTest {
 
     @Test
     void updateTestMax() {
-        int testSize = ArrayUtils.randomPositiveInt(5, 10);
+        int testSize = RandomUtils.randomPositiveInt(5, 10);
         for (int testNo = 0; testNo < testSize; testNo++) {
-            int size = ArrayUtils.randomPositiveInt(30, 40);
-            int[] array = ArrayUtils.randomIntArray(size, -1000, 1000);
+            int size = RandomUtils.randomPositiveInt(30, 40);
+            int[] array = RandomUtils.randomIntArray(size, -1000, 1000);
             SegmentTree segmentTree = new SegmentTree(array, SegmentTreeType.MAX);
             for (int testCaseNo = 0; testCaseNo <= size; testCaseNo++) {
-                int x = ArrayUtils.randomPositiveInt(0, size - 1);
-                int y = ArrayUtils.randomPositiveInt(0, size - 1);
+                int x = RandomUtils.randomPositiveInt(0, size - 1);
+                int y = RandomUtils.randomPositiveInt(0, size - 1);
                 if (x > y) {
                     x = x + y;
                     y = x - y;
                     x = x - y;
                 }
                 int maxFromIteration = Integer.MIN_VALUE;
-                int changeIndex = ArrayUtils.randomPositiveInt(0, size - 1);
-                int changeValue = ArrayUtils.randomPositiveInt(-1000, 1000);
+                int changeIndex = RandomUtils.randomPositiveInt(0, size - 1);
+                int changeValue = RandomUtils.randomPositiveInt(-1000, 1000);
                 array[changeIndex] = changeValue;
                 segmentTree.update(changeIndex, changeValue);
                 for (int index = x; index <= y; index++) {
@@ -36,22 +36,22 @@ class SegmentTreeTest {
 
     @Test
     void updateTestMin() {
-        int testSize = ArrayUtils.randomPositiveInt(5, 10);
+        int testSize = RandomUtils.randomPositiveInt(5, 10);
         for (int testNo = 0; testNo < testSize; testNo++) {
-            int size = ArrayUtils.randomPositiveInt(30, 40);
-            int[] array = ArrayUtils.randomIntArray(size, -1000, 1000);
+            int size = RandomUtils.randomPositiveInt(30, 40);
+            int[] array = RandomUtils.randomIntArray(size, -1000, 1000);
             SegmentTree segmentTree = new SegmentTree(array, SegmentTreeType.MIN);
             for (int testCaseNo = 0; testCaseNo <= size; testCaseNo++) {
-                int x = ArrayUtils.randomPositiveInt(0, size - 1);
-                int y = ArrayUtils.randomPositiveInt(0, size - 1);
+                int x = RandomUtils.randomPositiveInt(0, size - 1);
+                int y = RandomUtils.randomPositiveInt(0, size - 1);
                 if (x > y) {
                     x = x + y;
                     y = x - y;
                     x = x - y;
                 }
                 int maxFromIteration = Integer.MAX_VALUE;
-                int changeIndex = ArrayUtils.randomPositiveInt(0, size - 1);
-                int changeValue = ArrayUtils.randomPositiveInt(-1000, 1000);
+                int changeIndex = RandomUtils.randomPositiveInt(0, size - 1);
+                int changeValue = RandomUtils.randomPositiveInt(-1000, 1000);
                 array[changeIndex] = changeValue;
                 segmentTree.update(changeIndex, changeValue);
                 for (int index = x; index <= y; index++) {
@@ -65,22 +65,22 @@ class SegmentTreeTest {
 
     @Test
     void updateTestSum() {
-        int testSize = ArrayUtils.randomPositiveInt(5, 10);
+        int testSize = RandomUtils.randomPositiveInt(5, 10);
         for (int testNo = 0; testNo < testSize; testNo++) {
-            int size = ArrayUtils.randomPositiveInt(30, 40);
-            int[] array = ArrayUtils.randomIntArray(size, -1000, 1000);
+            int size = RandomUtils.randomPositiveInt(30, 40);
+            int[] array = RandomUtils.randomIntArray(size, -1000, 1000);
             SegmentTree segmentTree = new SegmentTree(array, SegmentTreeType.SUM);
             for (int testCaseNo = 0; testCaseNo <= size; testCaseNo++) {
-                int x = ArrayUtils.randomPositiveInt(0, size - 1);
-                int y = ArrayUtils.randomPositiveInt(0, size - 1);
+                int x = RandomUtils.randomPositiveInt(0, size - 1);
+                int y = RandomUtils.randomPositiveInt(0, size - 1);
                 if (x > y) {
                     x = x + y;
                     y = x - y;
                     x = x - y;
                 }
                 int maxFromIteration = 0;
-                int changeIndex = ArrayUtils.randomPositiveInt(0, size - 1);
-                int changeValue = ArrayUtils.randomPositiveInt(-1000, 1000);
+                int changeIndex = RandomUtils.randomPositiveInt(0, size - 1);
+                int changeValue = RandomUtils.randomPositiveInt(-1000, 1000);
                 array[changeIndex] = changeValue;
                 segmentTree.update(changeIndex, changeValue);
                 for (int index = x; index <= y; index++) {
@@ -93,15 +93,15 @@ class SegmentTreeTest {
     }
 
     @Test
-    void QueryTestMax() {
-        int testSize = ArrayUtils.randomPositiveInt(5, 10);
+    void QueryTest() {
+        int testSize = RandomUtils.randomPositiveInt(5, 10);
         for (int testNo = 0; testNo < testSize; testNo++) {
-            int size = ArrayUtils.randomPositiveInt(30, 40);
-            int[] array = ArrayUtils.randomIntArray(size, -1000, 1000);
+            int size = RandomUtils.randomPositiveInt(30, 40);
+            int[] array = RandomUtils.randomIntArray(size, -1000, 1000);
             SegmentTree segmentTree = new SegmentTree(array, SegmentTreeType.MAX);
             for (int testCaseNo = 0; testCaseNo <= size; testCaseNo++) {
-                int x = ArrayUtils.randomPositiveInt(0, size - 1);
-                int y = ArrayUtils.randomPositiveInt(0, size - 1);
+                int x = RandomUtils.randomPositiveInt(0, size - 1);
+                int y = RandomUtils.randomPositiveInt(0, size - 1);
                 if (x > y) {
                     x = x + y;
                     y = x - y;
@@ -119,14 +119,14 @@ class SegmentTreeTest {
 
     @Test
     void QueryTestMin() {
-        int testSize = ArrayUtils.randomPositiveInt(5, 10);
+        int testSize = RandomUtils.randomPositiveInt(5, 10);
         for (int testNo = 0; testNo < testSize; testNo++) {
-            int size = ArrayUtils.randomPositiveInt(30, 40);
-            int[] array = ArrayUtils.randomIntArray(size, -1000, 1000);
+            int size = RandomUtils.randomPositiveInt(30, 40);
+            int[] array = RandomUtils.randomIntArray(size, -1000, 1000);
             SegmentTree segmentTree = new SegmentTree(array, SegmentTreeType.MIN);
             for (int testCaseNo = 0; testCaseNo <= size; testCaseNo++) {
-                int x = ArrayUtils.randomPositiveInt(0, size - 1);
-                int y = ArrayUtils.randomPositiveInt(0, size - 1);
+                int x = RandomUtils.randomPositiveInt(0, size - 1);
+                int y = RandomUtils.randomPositiveInt(0, size - 1);
                 if (x > y) {
                     x = x + y;
                     y = x - y;
@@ -144,14 +144,14 @@ class SegmentTreeTest {
 
     @Test
     void QueryTestSum() {
-        int testSize = ArrayUtils.randomPositiveInt(5, 10);
+        int testSize = RandomUtils.randomPositiveInt(5, 10);
         for (int testNo = 0; testNo < testSize; testNo++) {
-            int size = ArrayUtils.randomPositiveInt(30, 40);
-            int[] array = ArrayUtils.randomIntArray(size, -1000, 1000);
+            int size = RandomUtils.randomPositiveInt(30, 40);
+            int[] array = RandomUtils.randomIntArray(size, -1000, 1000);
             SegmentTree segmentTree = new SegmentTree(array, SegmentTreeType.SUM);
             for (int testCaseNo = 0; testCaseNo <= size; testCaseNo++) {
-                int x = ArrayUtils.randomPositiveInt(0, size - 1);
-                int y = ArrayUtils.randomPositiveInt(0, size - 1);
+                int x = RandomUtils.randomPositiveInt(0, size - 1);
+                int y = RandomUtils.randomPositiveInt(0, size - 1);
                 if (x > y) {
                     x = x + y;
                     y = x - y;

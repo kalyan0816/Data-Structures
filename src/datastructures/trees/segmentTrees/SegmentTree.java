@@ -9,13 +9,12 @@ public class SegmentTree {
     private int arraySize;
 
     public SegmentTree(int[] array, SegmentTreeType treeType) {
-        int n = array.length;
-        arraySize = n;
-        int size = getSize(n);
-        segTree = new int[size];
+        arraySize = array.length;
+        int segmentTreeSize = getSize(arraySize);
+        segTree = new int[segmentTreeSize];
         type = treeType;
         Arrays.fill(segTree, this.type.getDefaultValue());
-        build(array, segTree, 0, n - 1, 0);
+        build(array, segTree, 0, arraySize - 1, 0);
     }
 
     private void build(int[] array, int[] segTree, int low, int high, int pos) {
@@ -39,35 +38,43 @@ public class SegmentTree {
         }
     }
 
-    public int query(int lowInArray, int highInArray) {
-        if (lowInArray > highInArray) {
-            lowInArray = lowInArray + highInArray;
-            highInArray = lowInArray - highInArray;
-            lowInArray = lowInArray - highInArray;
+    public int query(int lowIndexInArray, int highIndexInArray) {
+        if (lowIndexInArray > highIndexInArray) {
+            lowIndexInArray = lowIndexInArray + highIndexInArray;
+            highIndexInArray = lowIndexInArray - highIndexInArray;
+            lowIndexInArray = lowIndexInArray - highIndexInArray;
         }
-        if (lowInArray < 0 || highInArray > arraySize - 1) {
+        if (lowIndexInArray < 0 || highIndexInArray > arraySize - 1) {
             throw new IllegalStateException("Invalid query range");
         }
-        return query(0, arraySize - 1, lowInArray, highInArray, 0);
+        return query(0, arraySize - 1, lowIndexInArray, highIndexInArray, 0);
     }
 
-    private int query(int lowInSeg, int highInSeg, int lowInArray, int highInArray, int pos) {
-        if (perfectMatch(lowInSeg, highInSeg, lowInArray, highInArray)) {
+    private int query(int lowIndexInSeg, int highIndexInSeg, int lowIndexInArray, int highIndexInArray, int pos) {
+        if (perfectMatch(lowIndexInSeg, highIndexInSeg, lowIndexInArray, highIndexInArray)) {
             return segTree[pos];
         }
-        int mid = (lowInSeg + highInSeg) / 2;
-        if (lowInArray <= mid && highInArray <= mid) {
-            return query(lowInSeg, mid, lowInArray, highInArray, leftChildIndex(pos));
-        } else if (lowInArray > mid && highInArray > mid) {
-            return query(mid + 1, highInSeg, lowInArray, highInArray, rightChildIndex(pos));
+        int mid = (lowIndexInSeg + highIndexInSeg) / 2;
+        if (inLeftSubTree(lowIndexInArray, highIndexInArray, mid)) {
+            return query(lowIndexInSeg, mid, lowIndexInArray, highIndexInArray, leftChildIndex(pos));
+        } else if (inRightSubTree(lowIndexInArray, highIndexInArray, mid)) {
+            return query(mid + 1, highIndexInSeg, lowIndexInArray, highIndexInArray, rightChildIndex(pos));
         } else {
-            return this.type.apply(query(lowInSeg, mid, lowInArray, mid, leftChildIndex(pos)),
-                    query(mid + 1, highInSeg, mid + 1, highInArray, rightChildIndex(pos)));
+            return this.type.apply(query(lowIndexInSeg, mid, lowIndexInArray, mid, leftChildIndex(pos)),
+                    query(mid + 1, highIndexInSeg, mid + 1, highIndexInArray, rightChildIndex(pos)));
         }
     }
 
     private boolean perfectMatch(int lowInSeg, int highInSeg, int lowInArray, int highInArray) {
         return (lowInSeg == lowInArray) && (highInSeg == highInArray);
+    }
+
+    private boolean inLeftSubTree(int lowInArray, int highInArray, int mid) {
+        return lowInArray <= mid && highInArray <= mid;
+    }
+
+    private boolean inRightSubTree(int lowInArray, int highInArray, int mid) {
+        return lowInArray > mid && highInArray > mid;
     }
 
     private int getLeafIndex(int low, int high, int pos, int arrayIndex) {

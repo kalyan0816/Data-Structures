@@ -2,7 +2,7 @@ package datastructures.trees.segmentTrees.problems;
 
 import datastructures.trees.segmentTrees.SegmentTree;
 import datastructures.trees.segmentTrees.SegmentTreeType;
-import utils.ArrayUtils;
+import utils.RandomUtils;
 
 public class Buildings {
 
@@ -25,7 +25,7 @@ public class Buildings {
                 segmentTree.update(coordinateIndex, highestFallBetweenRange);
             }
         }
-        ArrayUtils.printArray(fallCoordinates, '\n');
+        RandomUtils.printArray(fallCoordinates, '\n');
     }
 
     private static int coordinateOfFarthestBuildingItCanFall(int[] coordinates, int low, int high, int fallCoordinate) {

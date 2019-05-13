@@ -1,17 +1,15 @@
 package utils;
 
 import java.util.Random;
-import java.util.Scanner;
 
-public class ArrayUtils {
+public class RandomUtils {
 
-    private static Scanner scanner = new Scanner(System.in);
     private static Random random = new Random();
 
     public static int[] readArray(int arraySize) {
         int[] array = new int[arraySize];
         for (int index = 0; index < arraySize; index++) {
-            array[index] = scanner.nextInt();
+            array[index] = FastReader.nextInt();
         }
         return array;
     }
@@ -69,6 +67,7 @@ public class ArrayUtils {
     }
 
     public static int readInt() {
-        return scanner.nextInt();
+        return FastReader.nextInt();
     }
 }
+
